@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
+
+ENV['GEM_HOME']='/opt/ec/g2mg/gems'
+
 require 'rubygems'
 require 'stomp'
+
 
 class StompLogger
   def on_subscribe(v1, v2)
