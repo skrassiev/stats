@@ -19,19 +19,11 @@ class StompLogger
 end
 
 queues = [
-  # ["/queue/UpdateMonitors.localhost",         :u],
-  # ["/queue/SignalImmediateWMAlert.localhost", :w],
-  # ["/queue/SignalImmediateAlert.localhost",   :i]
-  # ["/queue/BulkStoreConsolidate.g2mgi1store1", :c]
-  # ["/queue/my_UpdateMonitors.localhost",         :u],
-  # ["/queue/my_SignalImmediateWMAlert.localhost", :w],
-   ["/queue/UpdateMonitors.g2mgi1store22",   :i]  
-  # ["/queue/UpdateMonitors.g2mgstore7SEND",   :i]    
+   ["/queue/PopulateObjectCache", :i]  
 ]
 
 puts "Consumer for queue #{queues.inspect}"
 
-# client = Stomp::Client.new({:hosts => [{:login => "system", :passcode => "manager", :host => "g2mgi1crawler1.qai.expertcity.com", :port => 61613}], :connect_headers => {"accept-version" => "1.1", "host" => "apollo_instance"}, :logger => StompLogger.new})
 client = Stomp::Client.new({:hosts => [{:login => "system", :passcode => "manager", :host => "g2mgcrawler1.sjc.expertcity.com", :port => 61613}], :connect_headers => {"accept-version" => "1.1", "host" => "apollo_instance"}, :logger => StompLogger.new})
 
 vv = 0
@@ -41,9 +33,6 @@ queues.each do |q|
   client.subscribe q[0], { :ack => :client, :id => (self.id + vv).to_s } do | message |
     puts "message=#{message.body}"
     no_msg += 1
-    break if no_msg == 1000
-    # puts "press key to continue"
-    # gets
     client.ack message # tell the server the message was handled and to dispose of it
   end  
 end
