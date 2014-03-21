@@ -16,7 +16,7 @@ class StompLogger
   end
 
   def on_ack(log_params, headers)
-    puts "on_ack: log_params: #{log_params.inspect}\n\nheaders:#{headers.inspect}"
+    # puts "on_ack: log_params: #{log_params.inspect}\n\nheaders:#{headers.inspect}"
   end
     
   
