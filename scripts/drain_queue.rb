@@ -24,6 +24,7 @@ end
 
 queues = [
    ["/queue/PopulateObjectCache", :i]  
+#   ["/queue/TEST", :i]  
 ]
 
 puts "Consumer for queue #{queues.inspect}"
@@ -35,8 +36,8 @@ no_msg  = 0
 queues.each do |q|
   vv += 1
   client.subscribe q[0], { :ack => :client, :id => (self.id + vv).to_s } do | message |
-    puts "message=#{message.body}"
     no_msg += 1
+    puts "[#{no_msg}] message=#{message.body}"
     client.ack message # tell the server the message was handled and to dispose of it
   end  
 end
